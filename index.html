@@ -2,81 +2,141 @@
 <html lang="tr">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="suio — mini oyunlar ve görsel deneyimler" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="description" content="Süreyyapaşa'da tatlı bir gün — küçük bir davet." />
+  <meta name="theme-color" content="#ff8c5a" />
   <title>suio</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:ital,wght@0,400;0,600;0,700;1,600&family=Press+Start+2P&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="./css/style.css" />
-  <link rel="stylesheet" href="./css/animations.css" />
+  <link rel="stylesheet" href="./css/game.css" />
 </head>
 <body>
-  <!-- Parçacık arka planı -->
-  <canvas id="bg-particles" aria-hidden="true"></canvas>
-
-  <!-- Navigasyon -->
-  <header class="nav">
-    <a href="#" class="nav__logo">su<span>io</span></a>
-    <nav class="nav__links">
-      <a href="#games">Oyunlar</a>
-      <a href="#about">Hakkında</a>
-    </nav>
-  </header>
-
-  <!-- Hero -->
-  <main>
-    <section class="hero">
-      <h1 class="hero__title">
-        <span class="hero__word" style="--i:0">Oyna.</span>
-        <span class="hero__word" style="--i:1">Keşfet.</span>
-        <span class="hero__word" style="--i:2">Eğlen.</span>
-      </h1>
-      <p class="hero__subtitle reveal">Tarayıcıda çalışan mini oyunlar ve görsel deneyimler.</p>
-      <a href="#games" class="btn btn--glow reveal">Başla</a>
-    </section>
-
-    <!-- Oyunlar -->
-    <section id="games" class="games">
-      <h2 class="section__title reveal">Mini Oyunlar</h2>
-      <div class="games__grid">
-        <article class="card" data-game="reaction">
-          <div class="card__glow"></div>
-          <h3>Reflex</h3>
-          <p>Yeşili gördüğün an tıkla. Ne kadar hızlısın?</p>
-          <button class="btn btn--sm">Oyna</button>
-        </article>
-        <article class="card card--soon">
-          <div class="card__glow"></div>
-          <h3>Yakında</h3>
-          <p>Yeni oyunlar geliyor…</p>
-        </article>
-        <article class="card card--soon">
-          <div class="card__glow"></div>
-          <h3>Yakında</h3>
-          <p>Yeni oyunlar geliyor…</p>
-        </article>
-      </div>
-    </section>
-
-    <section id="about" class="about">
-      <h2 class="section__title reveal">Hakkında</h2>
-      <p class="reveal">suio, tamamen tarayıcıda çalışan, görselliğin ön planda olduğu mini oyunlar koleksiyonudur.</p>
-    </section>
-  </main>
-
-  <!-- Oyun modalı -->
-  <div id="game-modal" class="modal" hidden>
-    <div class="modal__backdrop"></div>
-    <div class="modal__panel">
-      <button class="modal__close" aria-label="Kapat">&times;</button>
-      <div id="game-mount"></div>
+  <!-- Dekoratif gökyüzü / deniz katmanları -->
+  <div class="scenery" aria-hidden="true">
+    <div class="sun"></div>
+    <div class="cloud cloud--1"></div>
+    <div class="cloud cloud--2"></div>
+    <div class="cloud cloud--3"></div>
+    <div class="gull gull--1">ᨒ</div>
+    <div class="gull gull--2">ᨒ</div>
+    <div class="gull gull--3">ᨒ</div>
+    <div class="sea">
+      <svg class="waves" viewBox="0 0 1200 120" preserveAspectRatio="none">
+        <path class="wave wave--back" d="M0,40 C150,80 350,0 600,40 C850,80 1050,10 1200,45 L1200,120 L0,120 Z"></path>
+        <path class="wave wave--front" d="M0,60 C200,100 400,30 600,60 C800,90 1000,40 1200,65 L1200,120 L0,120 Z"></path>
+      </svg>
     </div>
   </div>
 
-  <footer class="footer">
-    <p>© <span id="year"></span> suio</p>
-  </footer>
+  <!-- Ses kontrolü -->
+  <button id="sound-toggle" class="sound-toggle" aria-label="Sesi aç/kapat" hidden>
+    <span class="sound-toggle__on">♪</span>
+  </button>
+  <audio id="bg-music" src="./assets/audio/veridis-quo.mp3" loop preload="auto"></audio>
 
-  <!-- Firebase (modüler olarak sonra kullanılacak) -->
-  <script type="module" src="./js/main.js"></script>
+  <main class="stage">
+
+    <!-- 1) HOŞGELDİN -->
+    <section class="screen screen--welcome is-active" data-screen="welcome">
+      <div class="welcome__card pop-in">
+        <div class="welcome__seal">
+          <div class="seal-emoji">🦭</div>
+        </div>
+        <p class="eyebrow">küçük bir davet</p>
+        <h1 class="display">Süreyyapaşa'da<br>tatlı bir gün</h1>
+        <p class="lede">Sahilde bir piknik, biraz oyun ve keyifli bir program hazırladım.
+          Ama önce senden minik bir şey isteyeceğim…</p>
+        <button class="btn btn--primary" id="start-btn">
+          <span>Başlayalım!</span>
+          <svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M8 5v14l11-7z"/></svg>
+        </button>
+        <p class="hint">🔊 sesi açık tutarsan daha keyifli</p>
+      </div>
+    </section>
+
+    <!-- 2) GÜN SEÇİMİ -->
+    <section class="screen screen--days" data-screen="days" hidden>
+      <div class="days__head">
+        <h2 class="display display--sm">Hangi gün müsaitsin?</h2>
+        <p class="lede">Sana uyan günü seç — gerisini bana bırak.</p>
+      </div>
+      <div class="days__grid" id="days-grid">
+        <!-- gün kartları JS ile üretilir -->
+      </div>
+      <p class="days__status" id="days-status" aria-live="polite"></p>
+    </section>
+
+    <!-- 3) OYUN -->
+    <section class="screen screen--game" data-screen="game" hidden>
+      <div class="game__intro" id="game-intro">
+        <h2 class="display display--sm">Ama önce… bir oyun 🎮</h2>
+        <p class="lede">Fok balığımız gökten düşen balıkları yakalamaya çalışıyor.
+          <strong>25 balık</strong> yakalarsan sürprizin kilidi açılıyor!</p>
+        <ul class="controls-legend">
+          <li><span class="key">◀ ▶</span> / <span class="key">A</span> <span class="key">D</span> ile hareket</li>
+          <li><span class="key">👆</span> mobilde parmağınla kaydır</li>
+        </ul>
+        <button class="btn btn--primary" id="game-start-btn">Foku serbest bırak</button>
+      </div>
+
+      <div class="game__wrap" id="game-wrap" hidden>
+        <div class="game__hud">
+          <div class="hud__score">🐟 <span id="score">0</span> / 25</div>
+          <div class="hud__diff" id="difficulty">Kolay</div>
+          <div class="hud__lives" id="lives"></div>
+        </div>
+        <canvas id="game-canvas" width="200" height="150"></canvas>
+        <p class="game__touchhint">Foku kaydırmak için ekrana dokun & sürükle</p>
+      </div>
+    </section>
+
+    <!-- 4) SÜRPRİZ / KAZANDIN -->
+    <section class="screen screen--win" data-screen="win" hidden>
+      <canvas id="confetti-canvas" class="confetti-canvas"></canvas>
+      <div class="win__card pop-in">
+        <div class="win__badge">🎉</div>
+        <h2 class="display">Tebrikler!<br>Sürprizi kazandın</h2>
+        <p class="lede">Fok balığı gururla selamlıyor 🦭 Bakalım seni ne bekliyor…</p>
+        <button class="btn btn--primary" id="reveal-btn">Sürprizi gör</button>
+      </div>
+    </section>
+
+    <!-- 5) BİTİŞ / PROGRAM -->
+    <section class="screen screen--finale" data-screen="finale" hidden>
+      <div class="finale__card">
+        <p class="eyebrow">program hazır</p>
+        <h2 class="display display--sm" id="finale-date">— günü görüşmek üzere!</h2>
+
+        <div class="plan">
+          <div class="plan__block plan__block--picnic">
+            <h3><span class="plan__icon">🧺</span> Sahilde piknik</h3>
+            <ul>
+              <li><span>🥗</span> Rus salatası</li>
+              <li><span>🍇</span> Buz gibi karadut suyu</li>
+              <li><span>🍮</span> Soğuk baklava</li>
+              <li><span>🃏</span> Bol bol UNO</li>
+            </ul>
+          </div>
+          <div class="plan__arrow">↓</div>
+          <div class="plan__block plan__block--cafe">
+            <h3><span class="plan__icon">🎮</span> Sonra kafede oyun keyfi</h3>
+            <ul>
+              <li><span>🥋</span> Mortal Kombat</li>
+              <li><span>🔫</span> Call of Duty</li>
+              <li><span>🍳</span> Overcooked</li>
+            </ul>
+          </div>
+        </div>
+
+        <p class="finale__note">Not: kaybeden karadut suyu ısmarlar 😄</p>
+        <button class="btn btn--ghost" id="restart-btn">Baştan oyna</button>
+      </div>
+    </section>
+
+  </main>
+
+  <script type="module" src="./js/app.js"></script>
 </body>
 </html>

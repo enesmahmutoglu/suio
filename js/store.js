@@ -12,11 +12,15 @@ async function getDb() {
       const { initializeApp } = await import(
         "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js"
       );
-      const { getFirestore } = await import(
+      const { initializeFirestore } = await import(
         "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js"
       );
       const app = initializeApp(firebaseConfig);
-      return getFirestore(app);
+      // Bazı ağlar / adblocker'lar Firestore'un WebChannel akışını engeller.
+      // Otomatik long-polling algılama bu ortamlarda da yazmayı sağlar.
+      return initializeFirestore(app, {
+        experimentalAutoDetectLongPolling: true,
+      });
     })();
   }
   return dbPromise;

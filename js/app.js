@@ -63,7 +63,7 @@ async function pickDay(d, card) {
   daysStatus.textContent = "Kaydediliyor…";
 
   const res = await saveChoice(selected);
-  if (res.mode === "firebase") daysStatus.textContent = "Harika, seçimini aldım! ✨";
+  if (res.mode === "firebase" || res.mode === "rest") daysStatus.textContent = "Harika, seçimini aldım! ✨";
   else daysStatus.textContent = "Seçimini aldım! ✨";
 
   setTimeout(() => showScreen("game"), 900);

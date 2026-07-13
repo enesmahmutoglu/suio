@@ -6,6 +6,10 @@ import { startMusic } from "./audio.js";
 import { saveChoice } from "./store.js";
 import { createGame } from "./game.js";
 import { burstConfetti } from "./confetti.js";
+import { sealSVG } from "./seal.js";
+
+// Açılış ekranındaki fok (emoji yerine her cihazda görünen piksel çizim)
+document.getElementById("welcome-seal").innerHTML = sealSVG({ cell: 5 });
 
 // ---- Günler ----
 const DAYS = [

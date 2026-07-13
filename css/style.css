@@ -163,12 +163,12 @@ body::after {
   border: 1px solid rgba(255,255,255,0.7);
   position: relative;
 }
-.welcome__card { padding-top: 3.4rem; }
+.welcome__card { padding-top: 3.9rem; }
 
-.welcome__seal { position: absolute; top: -34px; left: 50%; transform: translateX(-50%); }
-.seal-emoji {
-  font-size: 3.6rem;
-  filter: drop-shadow(0 6px 6px rgba(0,0,0,0.15));
+.welcome__seal { position: absolute; top: -48px; left: 50%; transform: translateX(-50%); }
+.welcome__seal svg {
+  display: block;
+  filter: drop-shadow(0 6px 5px rgba(0,0,0,0.18));
   animation: sealBob 3s ease-in-out infinite;
 }
 @keyframes sealBob { 0%,100%{ transform: translateY(0) rotate(-3deg);} 50%{ transform: translateY(-8px) rotate(3deg);} }
@@ -280,7 +280,17 @@ body::after {
   text-align: left;
   box-shadow: inset 0 0 0 2px rgba(255,122,89,0.12);
 }
-.plan__block h3 { font-family: var(--font-display); font-size: 1.2rem; margin-bottom: 0.7rem; display: flex; align-items: center; gap: 0.5rem; }
+.plan__block h3 { font-family: var(--font-display); font-size: 1.2rem; margin-bottom: 0.4rem; display: flex; align-items: center; gap: 0.5rem; }
+.plan__sub {
+  font-family: var(--font-display);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-size: 0.72rem;
+  color: var(--coral-deep);
+  margin: 0 0 0.6rem 0.2rem;
+  opacity: 0.85;
+}
 .plan__block ul { list-style: none; display: grid; gap: 0.4rem; }
 .plan__block li { display: flex; align-items: center; gap: 0.6rem; font-size: 1.02rem; color: var(--ink-soft); }
 .plan__block li span { font-size: 1.2rem; }

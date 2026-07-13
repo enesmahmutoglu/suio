@@ -41,10 +41,7 @@
     <!-- 1) HOŞGELDİN -->
     <section class="screen screen--welcome is-active" data-screen="welcome">
       <div class="welcome__card pop-in">
-        <div class="welcome__seal">
-          <div class="seal-emoji">🦭</div>
-        </div>
-        <p class="eyebrow">küçük bir davet</p>
+        <div class="welcome__seal" id="welcome-seal" aria-hidden="true"></div>
         <h1 class="display">Süreyyapaşa'da<br>tatlı bir gün</h1>
         <p class="lede">Sahilde bir piknik, biraz oyun ve keyifli bir program hazırladım.
           Ama önce senden minik bir şey isteyeceğim…</p>
@@ -60,7 +57,7 @@
     <section class="screen screen--days" data-screen="days" hidden>
       <div class="days__head">
         <h2 class="display display--sm">Hangi gün müsaitsin?</h2>
-        <p class="lede">Sana uyan günü seç — gerisini bana bırak.</p>
+        <p class="lede">Sana uyan günü seç — (merak etmeyin bu sefer rekabet yok efenim 😞)</p>
       </div>
       <div class="days__grid" id="days-grid">
         <!-- gün kartları JS ile üretilir -->
@@ -98,20 +95,21 @@
       <div class="win__card pop-in">
         <div class="win__badge">🎉</div>
         <h2 class="display">Tebrikler!<br>Sürprizi kazandın</h2>
-        <p class="lede">Fok balığı gururla selamlıyor 🦭 Bakalım seni ne bekliyor…</p>
-        <button class="btn btn--primary" id="reveal-btn">Sürprizi gör</button>
+        <p class="lede">Fok balığımız gururla selamlıyor! Sürprizin ne olduğunu o gün göreceksin — şimdilik günün planına göz at 😊</p>
+        <button class="btn btn--primary" id="reveal-btn">Günün planına bak</button>
       </div>
     </section>
 
     <!-- 5) BİTİŞ / PROGRAM -->
     <section class="screen screen--finale" data-screen="finale" hidden>
       <div class="finale__card">
-        <p class="eyebrow">program hazır</p>
+        <p class="eyebrow">günün planı</p>
         <h2 class="display display--sm" id="finale-date">— günü görüşmek üzere!</h2>
 
         <div class="plan">
           <div class="plan__block plan__block--picnic">
             <h3><span class="plan__icon">🧺</span> Sahilde piknik</h3>
+            <p class="plan__sub">menü</p>
             <ul>
               <li><span>🥗</span> Rus salatası</li>
               <li><span>🍇</span> Buz gibi karadut suyu</li>
@@ -121,7 +119,7 @@
           </div>
           <div class="plan__arrow">↓</div>
           <div class="plan__block plan__block--cafe">
-            <h3><span class="plan__icon">🎮</span> Sonra kafede oyun keyfi</h3>
+            <h3><span class="plan__icon">🎮</span> Kafede oyun 😛</h3>
             <ul>
               <li><span>🥋</span> Mortal Kombat</li>
               <li><span>🔫</span> Call of Duty</li>
@@ -130,7 +128,6 @@
           </div>
         </div>
 
-        <p class="finale__note">Not: kaybeden karadut suyu ısmarlar 😄</p>
         <button class="btn btn--ghost" id="restart-btn">Baştan oyna</button>
       </div>
     </section>

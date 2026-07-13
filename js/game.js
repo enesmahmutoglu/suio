@@ -3,31 +3,9 @@
 // Her şey el yapımı piksel; kütüphane yok.
 // ============================================================
 
+import { SEAL, SEAL_PAL, SEAL_BLINK } from "./seal.js";
+
 const TARGET = 25; // kazanmak için gereken skor
-
-// ---- Piksel paletleri ----
-const SEAL_PAL = {
-  O: "#43535c", B: "#8fa3b0", W: "#eef5f8",
-  E: "#1c2a33", N: "#4a3630", P: "#74838d",
-};
-// Fok bitmap (14x12), 'B' gövde, 'W' karın, 'E' göz, 'N' burun, 'P' yüzgeç
-const SEAL = [
-  "....OOOOOO....",
-  "..OOBBBBBBOO..",
-  ".OBBBBBBBBBBO.",
-  ".OBBEBBBBEBBO.",
-  ".OBBBBBBBBBBO.",
-  ".OBBBBNNBBBBO.",
-  ".OBWWWWWWWWBO.",
-  "..OWWWWWWWWO..",
-  "..OWWWWWWWWO..",
-  ".OPPWWWWWWPPO.",
-  ".OPPOOOOOOPPO.",
-  "..OOO....OOO..",
-];
-
-// Fok göz kırpma karesi (gözler kapalı)
-const SEAL_BLINK = SEAL.map((r, i) => (i === 3 ? ".OBBOBBBBOBBO." : r));
 
 // Balık bitmap (10x6). 'x' gövde rengi değişir.
 const FISH = [

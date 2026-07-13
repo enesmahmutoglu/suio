@@ -398,6 +398,28 @@ body::after {
   .plan__arrow::after { visibility: visible; position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%); }
 }
 
+/* ---------- Minik künye (yakalaması zor :)) ---------- */
+.credit {
+  position: fixed;
+  bottom: 5px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 5;
+  font-family: var(--font-body);
+  font-size: 0.58rem;
+  letter-spacing: 0.02em;
+  color: var(--cream);
+  opacity: 0.35;
+  white-space: nowrap;
+  pointer-events: none;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.25);
+  transition: opacity 0.4s;
+}
+.credit:hover { opacity: 0.7; }
+@media (max-width: 480px) {
+  .credit { font-size: 0.5rem; }
+}
+
 /* ---------- Erişilebilirlik ---------- */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }

@@ -22,6 +22,30 @@
     <div class="gull gull--1">ᨒ</div>
     <div class="gull gull--2">ᨒ</div>
     <div class="gull gull--3">ᨒ</div>
+
+    <!-- Ufukta süzülen minik yelkenli -->
+    <div class="boat" aria-hidden="true">
+      <svg viewBox="0 0 24 24" width="26" height="26" shape-rendering="crispEdges">
+        <rect x="11" y="3" width="2" height="9" fill="#6f828d"/>
+        <path d="M13 4 L20 11 L13 11 Z" fill="#ff7a59"/>
+        <path d="M11 5 L5 11 L11 11 Z" fill="#ffd23f"/>
+        <path d="M6 12 L18 12 L16 16 L8 16 Z" fill="#8a5a44"/>
+      </svg>
+    </div>
+
+    <!-- Yükselen kabarcıklar -->
+    <div class="bubbles" aria-hidden="true">
+      <span style="--x:8%;  --s:10px; --d:11s; --delay:0s"></span>
+      <span style="--x:20%; --s:7px;  --d:9s;  --delay:2s"></span>
+      <span style="--x:33%; --s:13px; --d:13s; --delay:4s"></span>
+      <span style="--x:48%; --s:8px;  --d:10s; --delay:1s"></span>
+      <span style="--x:62%; --s:11px; --d:12s; --delay:3s"></span>
+      <span style="--x:75%; --s:6px;  --d:8s;  --delay:5s"></span>
+      <span style="--x:88%; --s:14px; --d:14s; --delay:2.5s"></span>
+      <span style="--x:95%; --s:9px;  --d:10s; --delay:6s"></span>
+    </div>
+
+    <div class="vignette"></div>
     <div class="sea">
       <svg class="waves" viewBox="0 0 1200 120" preserveAspectRatio="none">
         <path class="wave wave--back" d="M0,40 C150,80 350,0 600,40 C850,80 1050,10 1200,45 L1200,120 L0,120 Z"></path>
@@ -93,7 +117,7 @@
     <section class="screen screen--win" data-screen="win" hidden>
       <canvas id="confetti-canvas" class="confetti-canvas"></canvas>
       <div class="win__card pop-in">
-        <div class="win__badge">🎉</div>
+        <div class="win__seal" id="win-seal" aria-hidden="true"></div>
         <h2 class="display">Tebrikler!<br>Sürprizi kazandın</h2>
         <p class="lede">Fok balığımız gururla selamlıyor! Sürprizin ne olduğunu o gün göreceksin — şimdilik günün planına göz at 😊</p>
         <button class="btn btn--primary" id="reveal-btn">Günün planına bak</button>

@@ -61,7 +61,11 @@ body::after {
 }
 
 /* ---------- Dekoratif sahne ---------- */
-.scenery { position: fixed; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; }
+.scenery {
+  position: fixed; inset: 0; z-index: 0; overflow: hidden; pointer-events: none;
+  transform: scale(1.06) translate(var(--px, 0px), var(--py, 0px));
+  transition: transform 0.25s ease-out;
+}
 
 .sun {
   position: absolute;
@@ -109,6 +113,92 @@ body::after {
 .wave--back { fill: var(--sea-2); opacity: 0.6; animation: waveShift 12s ease-in-out infinite; }
 .wave--front { fill: var(--sea-1); animation: waveShift 9s ease-in-out infinite reverse; }
 @keyframes waveShift { 0%,100%{ transform: translateX(0);} 50%{ transform: translateX(-40px);} }
+
+/* Parallax: sun & clouds pointer'a göre hafif kayar */
+.sun { will-change: transform; }
+
+/* Ufuktaki yelkenli */
+.boat {
+  position: absolute;
+  bottom: calc(22vh - 6px);
+  left: -6%;
+  filter: drop-shadow(0 2px 2px rgba(0,0,0,0.12));
+  animation: boatSail 38s linear infinite, boatBob 3.5s ease-in-out infinite;
+}
+@keyframes boatSail { to { left: 106%; } }
+@keyframes boatBob { 0%,100%{ transform: translateY(0) rotate(-2deg);} 50%{ transform: translateY(-4px) rotate(2deg);} }
+
+/* Yükselen kabarcıklar */
+.bubbles { position: absolute; inset: 0; overflow: hidden; }
+.bubbles span {
+  position: absolute;
+  bottom: 16vh;
+  left: var(--x);
+  width: var(--s);
+  height: var(--s);
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, rgba(255,255,255,0.9), rgba(255,255,255,0.15) 60%, rgba(255,255,255,0) 70%);
+  border: 1px solid rgba(255,255,255,0.35);
+  animation: bubbleRise var(--d) ease-in infinite;
+  animation-delay: var(--delay);
+  opacity: 0;
+}
+@keyframes bubbleRise {
+  0% { transform: translateY(0) scale(0.6); opacity: 0; }
+  15% { opacity: 0.8; }
+  80% { opacity: 0.7; }
+  100% { transform: translateY(-70vh) translateX(12px) scale(1); opacity: 0; }
+}
+
+/* Yumuşak vinyet — atmosfer */
+.vignette {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(120% 90% at 50% 40%, transparent 55%, rgba(90,50,30,0.14) 100%);
+}
+
+/* Açılış foğu — tıklanabilir, sevimli */
+.welcome__seal { cursor: pointer; -webkit-tap-highlight-color: transparent; }
+.welcome__seal svg { transition: transform 0.12s; }
+.welcome__seal.hop svg { animation: sealHop 0.55s cubic-bezier(0.34,1.56,0.64,1); }
+@keyframes sealHop {
+  0% { transform: translateY(0) scale(1); }
+  30% { transform: translateY(-18px) scale(1.06, 0.94); }
+  55% { transform: translateY(0) scale(0.96, 1.04); }
+  75% { transform: translateY(-6px) scale(1.02, 0.98); }
+  100% { transform: translateY(0) scale(1); }
+}
+
+/* Kazanma foğu — sevinç dansı */
+.win__seal {
+  display: inline-block;
+  margin-bottom: 0.4rem;
+  filter: drop-shadow(0 6px 5px rgba(0,0,0,0.18));
+}
+.win__seal svg { display: block; animation: sealDance 1.1s ease-in-out infinite; transform-origin: 50% 100%; }
+@keyframes sealDance {
+  0%,100% { transform: rotate(-6deg) translateY(0); }
+  25% { transform: rotate(6deg) translateY(-6px); }
+  50% { transform: rotate(-4deg) translateY(0); }
+  75% { transform: rotate(4deg) translateY(-6px); }
+}
+
+/* Parıltı serpintileri (tıklama & gün seçimi) */
+.spark {
+  position: fixed;
+  width: 10px; height: 10px;
+  pointer-events: none;
+  z-index: 40;
+  color: var(--sun);
+  font-size: 12px;
+  will-change: transform, opacity;
+  animation: sparkFly 0.7s ease-out forwards;
+}
+@keyframes sparkFly {
+  0% { transform: translate(-50%, -50%) scale(0.3) rotate(0deg); opacity: 1; }
+  100% { transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))) scale(1) rotate(140deg); opacity: 0; }
+}
 
 /* ---------- Stage & ekranlar ---------- */
 .stage { position: relative; z-index: 2; min-height: 100dvh; }

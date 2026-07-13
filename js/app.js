@@ -8,8 +8,76 @@ import { createGame } from "./game.js";
 import { burstConfetti } from "./confetti.js";
 import { sealSVG } from "./seal.js";
 
+const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
 // Açılış ekranındaki fok (emoji yerine her cihazda görünen piksel çizim)
-document.getElementById("welcome-seal").innerHTML = sealSVG({ cell: 5 });
+const welcomeSeal = document.getElementById("welcome-seal");
+welcomeSeal.innerHTML = sealSVG({ cell: 5 });
+
+// --- Sevimli "iyk" sesi (WebAudio, asset yok) ---
+let sfxCtx = null;
+function squeak() {
+  try {
+    sfxCtx = sfxCtx || new (window.AudioContext || window.webkitAudioContext)();
+    const o = sfxCtx.createOscillator();
+    const g = sfxCtx.createGain();
+    o.type = "sine";
+    const t = sfxCtx.currentTime;
+    o.frequency.setValueAtTime(680, t);
+    o.frequency.exponentialRampToValueAtTime(1150, t + 0.09);
+    o.frequency.exponentialRampToValueAtTime(760, t + 0.18);
+    g.gain.setValueAtTime(0.0001, t);
+    g.gain.exponentialRampToValueAtTime(0.09, t + 0.03);
+    g.gain.exponentialRampToValueAtTime(0.0001, t + 0.2);
+    o.connect(g); g.connect(sfxCtx.destination);
+    o.start(t); o.stop(t + 0.22);
+  } catch {}
+}
+
+// --- Parıltı serpintisi ---
+const SPARKLES = ["✦", "✧", "⭐", "✺", "･ﾟ"];
+function sparkleBurst(x, y, n = 10) {
+  if (reducedMotion) return;
+  for (let i = 0; i < n; i++) {
+    const s = document.createElement("span");
+    s.className = "spark";
+    s.textContent = SPARKLES[(Math.random() * SPARKLES.length) | 0];
+    const ang = (Math.PI * 2 * i) / n + Math.random();
+    const dist = 26 + Math.random() * 44;
+    s.style.left = x + "px";
+    s.style.top = y + "px";
+    s.style.setProperty("--dx", Math.cos(ang) * dist + "px");
+    s.style.setProperty("--dy", Math.sin(ang) * dist + "px");
+    s.style.color = ["#ffd23f", "#ff7a59", "#37c2b4", "#ffffff"][(Math.random() * 4) | 0];
+    document.body.appendChild(s);
+    setTimeout(() => s.remove(), 750);
+  }
+}
+
+// Foğa tıklayınca zıpla + iyk + parıltı
+welcomeSeal.addEventListener("click", () => {
+  welcomeSeal.classList.remove("hop");
+  void welcomeSeal.offsetWidth;
+  welcomeSeal.classList.add("hop");
+  squeak();
+  const r = welcomeSeal.getBoundingClientRect();
+  sparkleBurst(r.left + r.width / 2, r.top + r.height / 2, 8);
+});
+
+// --- Fareyle hafif parallax (masaüstü) ---
+if (!reducedMotion && matchMedia("(pointer:fine)").matches) {
+  const scenery = document.querySelector(".scenery");
+  let tx = 0, ty = 0, raf = null;
+  window.addEventListener("pointermove", (e) => {
+    tx = (e.clientX / window.innerWidth - 0.5) * -16;
+    ty = (e.clientY / window.innerHeight - 0.5) * -12;
+    if (!raf) raf = requestAnimationFrame(() => {
+      scenery.style.setProperty("--px", tx.toFixed(1) + "px");
+      scenery.style.setProperty("--py", ty.toFixed(1) + "px");
+      raf = null;
+    });
+  });
+}
 
 // ---- Günler ----
 const DAYS = [
@@ -64,6 +132,9 @@ async function pickDay(d, card) {
   selected = { id: d.id, label: labelOf(d) };
   document.querySelectorAll(".day-card").forEach((c) => c.classList.add("is-busy"));
   card.classList.add("is-selected");
+  const cr = card.getBoundingClientRect();
+  sparkleBurst(cr.left + cr.width / 2, cr.top + cr.height / 2, 14);
+  squeak();
   daysStatus.textContent = "Kaydediliyor…";
 
   const res = await saveChoice(selected);
@@ -116,6 +187,7 @@ document.getElementById("game-start-btn").addEventListener("click", () => {
 // ---- 4) Sürpriz / konfeti ----
 function handleWin() {
   showScreen("win");
+  document.getElementById("win-seal").innerHTML = sealSVG({ cell: 4 });
   const confCanvas = document.getElementById("confetti-canvas");
   stopConfetti = burstConfetti(confCanvas, { duration: 3600, count: 180 });
 }

@@ -5,7 +5,7 @@
 
 import { SEAL, SEAL_PAL, SEAL_BLINK } from "./seal.js";
 
-const TARGET = 25; // kazanmak için gereken skor
+const TARGET = 35; // kazanmak için gereken skor
 
 // Balık bitmap (10x6). 'x' gövde rengi değişir.
 const FISH = [
@@ -53,11 +53,12 @@ function drawBitmap(ctx, map, pal, ox, oy) {
 }
 
 // ---- Zorluk kademeleri ----
+// 35 balığa yayılmış, öncekinden belirgin şekilde daha yumuşak kademeler
 function difficultyFor(score) {
-  if (score < 7)  return { level: 1, label: "Kolay",     base: 0.55, spawn: 1000, bomb: 0.0,  multi: 0 };
-  if (score < 14) return { level: 2, label: "Orta",      base: 0.80, spawn: 820,  bomb: 0.12, multi: 0 };
-  if (score < 21) return { level: 3, label: "Hafif Zor", base: 1.05, spawn: 680,  bomb: 0.20, multi: 0.25 };
-  return           { level: 4, label: "Zor",       base: 1.35, spawn: 560,  bomb: 0.28, multi: 0.4 };
+  if (score < 10) return { level: 1, label: "Kolay",     base: 0.52, spawn: 1000, bomb: 0.0,  multi: 0 };
+  if (score < 20) return { level: 2, label: "Orta",      base: 0.70, spawn: 850,  bomb: 0.10, multi: 0 };
+  if (score < 28) return { level: 3, label: "Hafif Zor", base: 0.88, spawn: 730,  bomb: 0.15, multi: 0.15 };
+  return           { level: 4, label: "Zor",       base: 1.05, spawn: 640,  bomb: 0.20, multi: 0.25 };
 }
 
 // ---- Basit ses efektleri (WebAudio) ----
@@ -139,7 +140,7 @@ export function createGame(canvas, { onUpdate, onWin }) {
     const map = isMine ? MINE : FISH;
     const w = bitmapWidth(map), h = bitmapHeight(map);
     const color = FISH_COLORS[(Math.random() * FISH_COLORS.length) | 0];
-    const boost = 1 + state.caught * 0.015; // her yakalamada biraz hızlan
+    const boost = 1 + state.caught * 0.009; // her yakalamada biraz hızlan (yumuşak)
     const vy = d.base * boost * (0.85 + Math.random() * 0.4);
     state.items.push({
       x: 6 + Math.random() * (W - w - 12),

@@ -1,0 +1,16 @@
+# Bağımlılıklar
+node_modules/
+
+# OS / editör
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/
+
+# Loglar
+*.log
+
+# Ortam dosyaları (varsa gizli anahtarlar)
+.env
+.env.local

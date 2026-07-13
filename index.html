@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="suio — mini oyunlar ve görsel deneyimler" />
+  <title>suio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="stylesheet" href="./css/style.css" />
+  <link rel="stylesheet" href="./css/animations.css" />
+</head>
+<body>
+  <!-- Parçacık arka planı -->
+  <canvas id="bg-particles" aria-hidden="true"></canvas>
+
+  <!-- Navigasyon -->
+  <header class="nav">
+    <a href="#" class="nav__logo">su<span>io</span></a>
+    <nav class="nav__links">
+      <a href="#games">Oyunlar</a>
+      <a href="#about">Hakkında</a>
+    </nav>
+  </header>
+
+  <!-- Hero -->
+  <main>
+    <section class="hero">
+      <h1 class="hero__title">
+        <span class="hero__word" style="--i:0">Oyna.</span>
+        <span class="hero__word" style="--i:1">Keşfet.</span>
+        <span class="hero__word" style="--i:2">Eğlen.</span>
+      </h1>
+      <p class="hero__subtitle reveal">Tarayıcıda çalışan mini oyunlar ve görsel deneyimler.</p>
+      <a href="#games" class="btn btn--glow reveal">Başla</a>
+    </section>
+
+    <!-- Oyunlar -->
+    <section id="games" class="games">
+      <h2 class="section__title reveal">Mini Oyunlar</h2>
+      <div class="games__grid">
+        <article class="card" data-game="reaction">
+          <div class="card__glow"></div>
+          <h3>Reflex</h3>
+          <p>Yeşili gördüğün an tıkla. Ne kadar hızlısın?</p>
+          <button class="btn btn--sm">Oyna</button>
+        </article>
+        <article class="card card--soon">
+          <div class="card__glow"></div>
+          <h3>Yakında</h3>
+          <p>Yeni oyunlar geliyor…</p>
+        </article>
+        <article class="card card--soon">
+          <div class="card__glow"></div>
+          <h3>Yakında</h3>
+          <p>Yeni oyunlar geliyor…</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="about" class="about">
+      <h2 class="section__title reveal">Hakkında</h2>
+      <p class="reveal">suio, tamamen tarayıcıda çalışan, görselliğin ön planda olduğu mini oyunlar koleksiyonudur.</p>
+    </section>
+  </main>
+
+  <!-- Oyun modalı -->
+  <div id="game-modal" class="modal" hidden>
+    <div class="modal__backdrop"></div>
+    <div class="modal__panel">
+      <button class="modal__close" aria-label="Kapat">&times;</button>
+      <div id="game-mount"></div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <p>© <span id="year"></span> suio</p>
+  </footer>
+
+  <!-- Firebase (modüler olarak sonra kullanılacak) -->
+  <script type="module" src="./js/main.js"></script>
+</body>
+</html>

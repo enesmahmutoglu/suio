@@ -1,0 +1,56 @@
+/* Hero kelime animasyonu */
+.hero__word {
+  opacity: 0;
+  transform: translateY(30px);
+  animation:
+    wordIn 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards,
+    gradientShift 6s ease-in-out infinite;
+  animation-delay: calc(var(--i) * 0.15s), calc(var(--i) * 0.15s);
+}
+
+@keyframes wordIn {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes gradientShift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+/* Scroll reveal — .reveal başlar gizli, .is-visible ile açılır */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Modal giriş */
+.modal__panel {
+  animation: modalIn 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+@keyframes modalIn {
+  from { opacity: 0; transform: scale(0.92) translateY(20px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+/* Buton parıltı nabzı */
+.btn--glow {
+  animation: glowPulse 2.5s ease-in-out infinite;
+}
+@keyframes glowPulse {
+  0%, 100% { box-shadow: 0 0 30px rgba(108, 92, 231, 0.4); }
+  50% { box-shadow: 0 0 45px rgba(108, 92, 231, 0.7); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  .hero__word, .reveal { opacity: 1; transform: none; }
+}
